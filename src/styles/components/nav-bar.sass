@@ -1,0 +1,62 @@
+.nav-bar
+  position: fixed
+  top: 0
+  height: 100%
+  width: 260px
+  margin-top: 50px
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2)
+  z-index: 3
+  left: 0
+  background: $white-color
+
+  +mmin($tablet)
+    width: 350px
+
+  +mmin($large)
+    position: absolute
+    height: auto
+    width: auto
+    left: auto
+    right: 8em
+    margin-top: 0
+    top: 0
+    background: transparent
+    box-shadow: none
+    line-height: 80px
+    z-index: 4
+
+  &__item
+    +mmin($large)
+      display: inline-block
+      margin-left: 1em
+
+  &__link
+    display: block
+    height: 50px
+    line-height: 50px
+    padding: 0 1em
+    border-bottom: 1px solid $border-color
+    transition: .3s
+
+    +mmin($large)
+      display: inline-block
+      height: auto
+      line-height: 1
+      padding: 1em 1.4em
+      border-bottom: none
+      color: rgba(255, 255, 255, 0.8)
+      border-radius: 0.25em
+
+      &:hover
+        background: darken($link-color, 10%)
+        color: $white-color
+
+  &__link.active
+    box-shadow: inset 3px 0 $link-color
+
+    +mmin($large)
+      box-shadow: none
+      background: $link-color
+      color: $white-color

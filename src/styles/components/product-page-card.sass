@@ -1,0 +1,28 @@
+.product-page-card
+  display: flex
+  flex-flow: row wrap
+  position: relative
+  background: $white-color
+  border-radius: 3px
+  overflow: hidden
+
+  &__img-wrap,
+  &__info-wrap
+    width: 100%
+
+    +mmin($tablet)
+      width: 50%
+
+  &__img
+    pointer-events: none
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+  &__info-wrap
+    padding: 50px 5%
+
+  &__title
+    max-width: 480px
+    font-size: 2.4rem
+    font-weight: bold
