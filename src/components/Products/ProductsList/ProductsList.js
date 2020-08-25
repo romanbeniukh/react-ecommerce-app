@@ -1,30 +1,21 @@
 import React from 'react';
-import T from 'prop-types';
-import ProductCard from '../ProductCard/ProductCardContainer';
+import { useSelector } from 'react-redux';
+import { getProductsSelector } from '../../../redux/selectors/ProductsSelectors';
 
-const ProductsList = ({ products }) => (
-  <ul className="products">
-    {products.map(product => (
-      <li className="products__item" key={product.id}>
-        <ProductCard product={product} />
-      </li>
-    ))}
-  </ul>
-);
+import ProductCard from '../ProductCard/ProductCard';
 
-ProductsList.propTypes = {
-  products: T.arrayOf(
-    T.shape({
-      isEditable: T.bool,
-      id: T.string,
-      name: T.string,
-      price: T.number,
-      origin: T.string,
-      createdAt: T.string,
-      updatedAt: T.string,
-      quantity: T.number,
-    }),
-  ).isRequired,
+const ProductsList = () => {
+  const products = useSelector(getProductsSelector);
+
+  return (
+    <ul className="products">
+      {products.map(product => (
+        <li className="products__item" key={product.id}>
+          <ProductCard product={product} />
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default ProductsList;

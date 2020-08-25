@@ -1,22 +1,30 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import T from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import useBodyOverflow from '../../../hooks/useBodyOverflow';
 import useOutsideClick from '../../../hooks/useOtsideClick';
 import useListenHistory from '../../../hooks/useListenHistory';
-import ProductCard from '../../Products/ProductCard/ProductCardContainer';
+import { toggleCartPopUp } from '../../../redux/actions/AppActions';
+import { getProductsInCartSelector, getCartTotalPriceSelector } from '../../../redux/selectors/CartSelector';
+import { CART_PAGE } from '../../../helpers/constants';
+
+import ProductCard from '../../Products/ProductCard/ProductCard';
 import currencyFormatter from '../../../helpers/currencyFormatter';
 import CartEmpty from '../CartEmpty/CartEmpty';
 
-const CartPopUp = ({ toggleCartPopUp, products, totalPrice }) => {
+const CartPopUp = () => {
   const ref = useRef();
+  const dispatch = useDispatch();
+
+  const products = useSelector(getProductsInCartSelector);
+  const totalPrice = useSelector(getCartTotalPriceSelector);
 
   useOutsideClick(ref, () => {
-    toggleCartPopUp(false);
+    dispatch(toggleCartPopUp(false));
   });
 
   useListenHistory(() => {
-    toggleCartPopUp(false);
+    dispatch(toggleCartPopUp(false));
   });
 
   useBodyOverflow(true);
@@ -33,7 +41,7 @@ const CartPopUp = ({ toggleCartPopUp, products, totalPrice }) => {
             Total:<span className="cart-pop-up__total-price">{`${currencyFormatter(totalPrice)} $`}</span>
           </div>
           <div className="cart-pop-up__to-cart-link-wrap">
-            <Link className="cart-pop-up__to-cart-link" to="/cart">
+            <Link className="cart-pop-up__to-cart-link" to={CART_PAGE}>
               Go to cart page
             </Link>
           </div>
@@ -43,23 +51,6 @@ const CartPopUp = ({ toggleCartPopUp, products, totalPrice }) => {
       )}
     </div>
   );
-};
-
-CartPopUp.propTypes = {
-  products: T.arrayOf(
-    T.shape({
-      isEditable: T.bool,
-      id: T.string,
-      name: T.string,
-      price: T.number,
-      origin: T.string,
-      createdAt: T.string,
-      updatedAt: T.string,
-      quantity: T.number,
-    }),
-  ).isRequired,
-  toggleCartPopUp: T.func.isRequired,
-  totalPrice: T.number.isRequired,
 };
 
 export default CartPopUp;

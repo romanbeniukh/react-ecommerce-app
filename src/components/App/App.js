@@ -1,10 +1,14 @@
 import React from 'react';
 import ReduxToastr from 'react-redux-toastr';
-import T from 'prop-types';
+import { useSelector } from 'react-redux';
+import { isCartPopUpSelector, isNavigationSelector } from '../../redux/selectors/AppSelectors';
 import Routes from '../../router/Routes';
-import Header from '../../layouts/Header/HeaderContainer';
+import Header from '../../layouts/Header/Header';
 
-const App = ({ isCartPopUp, isNavigation }) => {
+const App = () => {
+  const isCartPopUp = useSelector(isCartPopUpSelector);
+  const isNavigation = useSelector(isNavigationSelector);
+
   return (
     <>
       <Header />
@@ -24,11 +28,6 @@ const App = ({ isCartPopUp, isNavigation }) => {
       />
     </>
   );
-};
-
-App.propTypes = {
-  isCartPopUp: T.bool.isRequired,
-  isNavigation: T.bool.isRequired,
 };
 
 export default App;

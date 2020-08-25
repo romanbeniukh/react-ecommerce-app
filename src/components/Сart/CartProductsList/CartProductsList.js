@@ -1,11 +1,16 @@
 import React from 'react';
-import T from 'prop-types';
-import CartProduct from '../CartProduct/CartProductContainer';
+import { useSelector } from 'react-redux';
+import { getProductsInCartSelector, getCartTotalPriceSelector } from '../../../redux/selectors/CartSelector';
+
+import CartProduct from '../CartProduct/CartProduct';
 import CartEmpty from '../CartEmpty/CartEmpty';
 import currencyFormatter from '../../../helpers/currencyFormatter';
 
-const CartProductsList = ({ products, totalPrice }) =>
-  products.length ? (
+const CartProductsList = () => {
+  const products = useSelector(getProductsInCartSelector);
+  const totalPrice = useSelector(getCartTotalPriceSelector);
+
+  return products.length ? (
     <>
       <ul className="cart-products">
         {products.map(product => (
@@ -21,21 +26,6 @@ const CartProductsList = ({ products, totalPrice }) =>
   ) : (
     <CartEmpty />
   );
-
-CartProductsList.propTypes = {
-  products: T.arrayOf(
-    T.shape({
-      isEditable: T.bool,
-      id: T.string,
-      name: T.string,
-      price: T.number,
-      origin: T.string,
-      createdAt: T.string,
-      updatedAt: T.string,
-      quantity: T.number,
-    }),
-  ).isRequired,
-  totalPrice: T.number.isRequired,
 };
 
 export default CartProductsList;

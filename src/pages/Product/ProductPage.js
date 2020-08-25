@@ -1,28 +1,23 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import T from 'prop-types';
-import ProductPageCard from '../../components/Products/ProductPageCard/ProductPageCardContainer';
+import { useDispatch } from 'react-redux';
+import { getProduct } from '../../redux/operations/ProductsOperations';
+import ProductPageCard from '../../components/Products/ProductPageCard/ProductPageCard';
 import Section from '../../layouts/Section/Section';
 
-const ProductPage = ({ getProduct, clearProduct }) => {
+const ProductPage = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getProduct(id);
-
-    return () => clearProduct();
-  }, [getProduct, clearProduct, id]);
+    dispatch(getProduct(id));
+  }, [dispatch, id]);
 
   return (
     <Section title="Product">
       <ProductPageCard />
     </Section>
   );
-};
-
-ProductPage.propTypes = {
-  getProduct: T.func.isRequired,
-  clearProduct: T.func.isRequired,
 };
 
 export default ProductPage;

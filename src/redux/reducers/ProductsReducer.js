@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { getProductsSuccess, getProductSuccess, clearProduct } from '../actions/ProductsActions';
+import { getProductsSuccess, getProductSuccess, getProductRequest } from '../actions/ProductsActions';
 
 const productsReducer = createReducer([], {
   [getProductsSuccess]: (state, action) => action.payload,
@@ -9,10 +9,8 @@ const productsReducer = createReducer([], {
 const productReducer = createReducer(
   {},
   {
+    [getProductRequest]: () => ({}),
     [getProductSuccess]: (state, action) => action.payload,
-    [clearProduct]: () => {
-      return {};
-    },
   },
 );
 

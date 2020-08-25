@@ -1,18 +1,28 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-import T from 'prop-types';
-import NavBar from '../../components/NavBar/NavBarContainer';
-import logo from '../../assets/img/logo.svg';
+import { useSelector, useDispatch } from 'react-redux';
 import useWindowSize from '../../hooks/useWindowSize';
-import { NOT_ADAPTIVE } from '../../helpers/constants';
+import { isCartPopUpSelector, isNavigationSelector } from '../../redux/selectors/AppSelectors';
+import { getCartItemsCountSelector } from '../../redux/selectors/CartSelector';
+import { toggleNavigation, toggleCartPopUp } from '../../redux/actions/AppActions';
+import { NOT_ADAPTIVE, CART_PAGE } from '../../helpers/constants';
+
+import NavBar from '../../components/NavBar/NavBar';
+import CartPopUp from '../../components/Сart/CartPopUp/CartPopUp';
+
+import logo from '../../assets/img/logo.svg';
 import slideLeft from '../../styles/transitions/slide-left.module.sass';
 import slideRight from '../../styles/transitions/slide-right.module.sass';
-import CartPopUp from '../../components/Сart/CartPopUp/CartPopUpContainer';
 
-const Header = ({ cartItemsCount, isCartPopUp, isNavigation, toggleCartPopUp, toggleNavigation }) => {
+const Header = () => {
+  const dispatch = useDispatch();
   const width = useWindowSize();
   const location = useLocation();
+
+  const cartItemsCount = useSelector(getCartItemsCountSelector);
+  const isCartPopUp = useSelector(isCartPopUpSelector);
+  const isNavigation = useSelector(isNavigationSelector);
 
   return (
     <>
@@ -25,17 +35,17 @@ const Header = ({ cartItemsCount, isCartPopUp, isNavigation, toggleCartPopUp, to
           <button
             type="button"
             className="img-replace"
-            onClick={() => toggleNavigation(!isNavigation)}
+            onClick={() => dispatch(toggleNavigation(!isNavigation))}
             aria-label="Menu"
           />
         </div>
-        {location.pathname !== '/cart' && (
+        {location.pathname !== CART_PAGE && (
           <div className="page-header__cart-icon cart-icon">
             <div className="page-header__cart-icon-wrap">
               <button
                 type="button"
                 className="img-replace"
-                onClick={() => toggleCartPopUp(!isCartPopUp)}
+                onClick={() => dispatch(toggleCartPopUp(!isCartPopUp))}
                 aria-label="Cart"
               />
               {cartItemsCount > 0 && <div className="page-header__cart-icon-count">{cartItemsCount}</div>}
@@ -55,14 +65,6 @@ const Header = ({ cartItemsCount, isCartPopUp, isNavigation, toggleCartPopUp, to
       </header>
     </>
   );
-};
-
-Header.propTypes = {
-  cartItemsCount: T.number.isRequired,
-  isCartPopUp: T.bool.isRequired,
-  isNavigation: T.bool.isRequired,
-  toggleCartPopUp: T.func.isRequired,
-  toggleNavigation: T.func.isRequired,
 };
 
 export default Header;

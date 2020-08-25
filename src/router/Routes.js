@@ -1,21 +1,20 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { MAIN_PAGE, PRODUCTS_PAGE, CART_PAGE } from '../helpers/constants';
 
-const Home = lazy(() => import('../pages/Home/HomePage'));
-const Products = lazy(() => import('../pages/Products/ProductsPageContainer'));
-const Product = lazy(() => import('../pages/Product/ProductPageContainer'));
-const Cart = lazy(() => import('../pages/Cart/CartPage'));
+import HomePage from '../pages/Home/HomePage';
+import ProductsPage from '../pages/Products/ProductsPage';
+import ProductPage from '../pages/Product/ProductPage';
+import CartPage from '../pages/Cart/CartPage';
 
 const Routes = () => (
-  <Suspense fallback={null}>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/products" component={Products} />
-      <Route path="/products/:id" component={Product} />
-      <Route path="/cart" component={Cart} />
-      <Redirect to="/" />
-    </Switch>
-  </Suspense>
+  <Switch>
+    <Route exact path={MAIN_PAGE} component={HomePage} />
+    <Route exact path={PRODUCTS_PAGE} component={ProductsPage} />
+    <Route path={`${PRODUCTS_PAGE}/:id`} component={ProductPage} />
+    <Route path={CART_PAGE} component={CartPage} />
+    <Redirect to={MAIN_PAGE} />
+  </Switch>
 );
 
 export default Routes;
