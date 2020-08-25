@@ -1,0 +1,109 @@
+html
+  box-sizing: border-box
+
+*, *::before, *::after
+  box-sizing: inherit
+
+body
+  color: $text-color
+  background-color: #fff
+  font-size: 100%
+  line-height: 1.2
+  font-family: 'Cera Pro', "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif
+  letter-spacing: 0.01px
+  overflow-x: hidden
+
+a
+  color: $link-color
+  text-decoration: none
+
+a:hover,
+a:focus
+  cursor: pointer
+
+button,
+input,
+optgroup,
+select,
+option,
+textarea,
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='password'],
+input[type='file'],
+input[type='search'],
+input[type='submit'],
+button[type='submit'],
+button[type='button'],
+fieldset,
+figcaption,
+figure
+  font-family: 'Cera Pro', "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif
+  -webkit-appearance: none
+  font-size: 16px
+
+  &:focus
+    box-shadow: none
+
+
+input[type='button']:hover,
+input[type='submit']:hover,
+button:hover
+  cursor: pointer
+
+img
+  max-width: 100%
+
+main
+  position: relative
+  min-height: 100vh
+  background: #eeeff7
+  padding-top: 70px
+  z-index: 1
+
+  +mmin($tablet)
+    padding-top: 90px
+
+  +mmin($large)
+    padding-top: 120px
+
+.page-container
+  width: 100%
+  max-width: 1400px
+  padding: 0 15px
+  margin: 0 auto
+
+.page-title
+  font-size: 18px
+  font-weight: 500
+  margin-bottom: 20px
+
+  +mmin($tablet)
+    font-size: 24px
+
+.loader
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  z-index: 2
+
+.page-overlay
+  position: fixed
+  min-height: 100%
+  width: 100%
+  top: 0
+  left: 0
+  background: rgba(67, 87, 121, 0.6)
+  cursor: pointer
+  z-index: 2
+
+.img-replace
+  display: inline-block
+  overflow: hidden
+  text-indent: 100%
+  white-space: nowrap
+
+.overflow-hidden
+  overflow: hidden

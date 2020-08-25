@@ -1,0 +1,61 @@
+.cart-pop-up
+  position: fixed
+  top: 0
+  height: 100%
+  width: 260px
+  margin-top: 50px
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2)
+  z-index: 3
+  right: 0
+  background: $white-color
+
+  +mmin($tablet)
+    width: 350px
+
+  +mmin($large)
+    width: 30%
+    margin-top: 80px
+
+  > *
+    padding: 0 15px
+
+  &__title
+    font-size: 16px
+    font-weight: bold
+    text-transform: uppercase
+    margin: 1em 0
+
+  &__to-cart-link-wrap
+    text-align: center
+
+  &__to-cart-link
+    position: relative
+    text-align: center
+    margin: 1em 0
+    color: $link-color
+
+    &:after
+      content: ''
+      position: absolute
+      width: 0
+      height: 1px
+      bottom: -5px
+      left: 0
+      background-color: $link-color
+      transition: width .3s ease-in-out
+
+    &:hover
+      &:after
+        width: 100%
+
+  &__total-price-wrap
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 15px
+
+  &__total-price
+    font-size: 18px
+    font-weight: 500

@@ -1,1 +1,1 @@
-# react-phonebook-app
+# react-ecommerce-app

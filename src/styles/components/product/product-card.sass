@@ -1,0 +1,147 @@
+.product-card
+  display: flex
+  flex-direction: column
+  position: relative
+  background-color: $white-color
+  padding: 15px
+
+  &:hover
+    &:before
+      box-shadow: 0 2px 15px 0 hsla(0,0%,72.2%,.5)
+
+  &:before
+    content: ""
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    background-color: #fff
+    border-radius: 3px
+    z-index: -1
+
+  &__title
+    color: $text-color
+    font-weight: 500
+    min-height: 57px
+
+  &__info
+    display: flex
+    flex-direction: column
+    font-size: 14px
+    font-weight: 300
+    margin-bottom: 20px
+
+  &__origins
+    max-width: max-content
+    padding: 2px 4px
+    border-radius: 2px
+    font-size: 12px
+    font-weight: 500
+    color: $white-color
+    background-color: $gray-text-color
+    margin-bottom: 20px
+
+    &--europe
+      background-color: $link-color
+
+    &--usa
+      background-color: $error-text-color
+
+    &--asia
+      background-color: $yellow-text-color
+
+    &--africa
+      background-color: $green-text-color
+
+  &__date
+    font-weight: 400
+
+    span
+      font-weight: 300
+      color: $gray-text-color
+
+  &__price-wrap
+    margin-bottom: 20px
+
+  &__price--accent
+    font-weight: 500
+
+  &__img
+    width: 100%
+    margin-bottom: 20px
+
+.product-card--small-cart,
+.product-card--cart
+  position: relative
+  min-height: 80px
+  justify-content: space-between
+  border-bottom: 1px solid $border-color
+
+  &:before
+    display: none
+
+  .product-card__title
+    font-weight: 500
+    margin-left: 65px
+    min-height: auto
+
+  .product-card__price-wrap
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    margin-left: 65px
+    margin-bottom: 0
+
+  .product-card__link
+    display: flex
+    flex-flow: row nowrap
+    align-items: flex-start
+
+  .product-card__img
+    position: absolute
+    top: 15px
+    left: 15px
+    max-width: 50px
+
+.product-card--cart
+  width: 50%
+  padding: 0
+  border: none
+  min-height: 50px
+
+  +mmin($tablet)
+    min-height: 100px
+
+  .product-card__img
+    display: none
+    top: 0
+    left: 0
+
+    +mmin($small)
+      display: block
+
+    +mmin($tablet)
+      max-width: 100px
+
+  .product-card__price-wrap
+    margin-left: 0
+
+    +mmin($small)
+      margin-left: 65px
+
+    +mmin($tablet)
+      margin-left: 115px
+
+  .product-card__title
+    position: absolute
+    min-width: max-content
+    margin-left: 0
+
+    +mmin($small)
+      margin-left: 65px
+
+    +mmin($tablet)
+      margin-left: 115px
+
+

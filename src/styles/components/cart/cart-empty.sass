@@ -1,0 +1,35 @@
+.cart-empty
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  padding: 15px 0
+
+  &__title
+    font-size: 18px
+    font-weight: 500
+    margin-bottom: 10px
+
+  &__text
+    font-weight: 300
+    margin-bottom: 20px
+
+  &__link
+    position: relative
+    text-align: center
+    margin-top: 20px
+    color: $link-color
+
+    &:after
+      content: ''
+      position: absolute
+      width: 0
+      height: 1px
+      bottom: -5px
+      left: 0
+      background-color: $link-color
+      transition: width .3s ease-in-out
+
+    &:hover
+      &:after
+        width: 100%

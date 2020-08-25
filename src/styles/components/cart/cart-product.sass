@@ -1,0 +1,62 @@
+.cart-products
+  max-width: 900px
+  margin: 0 auto
+
+  &__total
+    width: 100%
+    text-align: right
+    padding: 20px 30px
+
+  &__total-price
+    font-size: 24px
+    font-weight: 500
+
+.cart-product
+  display: flex
+  align-items: flex-end
+  position: relative
+  width: 100%
+  background-color: $white-color
+  padding: 10px 30px 10px 40px
+  border-bottom: 1px solid $border-color
+
+  +mmin($tablet)
+    align-items: center
+
+  &__quantity
+    display: flex
+    align-items: center
+    flex-flow: row nowrap
+    margin-left: auto
+
+  &__quantity-text
+    font-size: 18px
+    font-weight: 300
+    min-width: 30px
+    text-align: center
+
+  &__total
+    font-size: 18px
+    font-weight: 500
+    width: 35%
+    text-align: right
+
+button.cart-product__quantity-btn
+  background: transparent
+  width: 28px
+  height: 28px
+  border: none
+  padding: 0
+  font-size: 24px
+
+button.cart-product__remove
+  position: absolute
+  width: 15px
+  height: 15px
+  padding: 0
+  border: none
+  color: $gray-text-color
+  background: transparent url("../../../assets/img/remove-icon.svg")
+  left: 12px
+  top: 50%
+  transform: translateY(-50%)
