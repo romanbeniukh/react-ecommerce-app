@@ -6,7 +6,7 @@ import Section from '../../layouts/Section/Section';
 const ProductsPage = ({ getProducts }) => {
   useEffect(() => {
     getProducts();
-  }, [getProducts]);
+  });
 
   return (
     <Section title="Products">

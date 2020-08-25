@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 const Home = lazy(() => import('../pages/Home/HomePage'));
 const Products = lazy(() => import('../pages/Products/ProductsPageContainer'));
-const Product = lazy(() => import('../pages/Product/ProductPage'));
+const Product = lazy(() => import('../pages/Product/ProductPageContainer'));
 const Cart = lazy(() => import('../pages/Cart/CartPage'));
 
 const Routes = () => (

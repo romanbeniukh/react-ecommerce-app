@@ -7,6 +7,8 @@ import logo from '../../assets/img/logo.svg';
 import useWindowSize from '../../hooks/useWindowSize';
 import { NOT_ADAPTIVE } from '../../helpers/constants';
 import slideLeft from '../../styles/transitions/slide-left.module.sass';
+import slideRight from '../../styles/transitions/slide-right.module.sass';
+import CartPopUp from '../../components/Сart/CartPopUp/CartPopUpContainer';
 
 const Header = ({ cartItemsCount, isCartPopUp, isNavigation, toggleCartPopUp, toggleNavigation }) => {
   const width = useWindowSize();
@@ -47,6 +49,9 @@ const Header = ({ cartItemsCount, isCartPopUp, isNavigation, toggleCartPopUp, to
         ) : (
           <NavBar />
         )}
+        <CSSTransition in={isCartPopUp} timeout={300} classNames={slideRight} unmountOnExit>
+          <CartPopUp />
+        </CSSTransition>
       </header>
     </>
   );

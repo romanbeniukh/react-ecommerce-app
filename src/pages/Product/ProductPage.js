@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { toastr } from 'react-redux-toastr';
-import api from '../../api/requests';
-import ProductPageCard from '../../components/Products/ProductPageCard/ProductPageCard';
+import T from 'prop-types';
+import ProductPageCard from '../../components/Products/ProductPageCard/ProductPageCardContainer';
 import Section from '../../layouts/Section/Section';
 
-const ProductPage = () => {
-  const [product, setProduct] = useState({});
+const ProductPage = ({ getProduct, clearProduct }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    api
-      .getProduct(id)
-      .then(res => {
-        setProduct(res);
-      })
-      .catch(err => {
-        toastr.error('Error', err.message);
-      });
-  }, [id]);
+    getProduct(id);
+
+    return () => clearProduct();
+  }, [getProduct, clearProduct, id]);
 
   return (
     <Section title="Product">
-      <ProductPageCard product={product} />
+      <ProductPageCard />
     </Section>
   );
+};
+
+ProductPage.propTypes = {
+  getProduct: T.func.isRequired,
+  clearProduct: T.func.isRequired,
 };
 
 export default ProductPage;
