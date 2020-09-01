@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,6 +24,14 @@ const Header = () => {
   const isCartPopUp = useSelector(isCartPopUpSelector);
   const isNavigation = useSelector(isNavigationSelector);
 
+  const handleCartPopUp = useCallback(() => {
+    dispatch(toggleCartPopUp(!isCartPopUp));
+  }, [dispatch, isCartPopUp]);
+
+  const handleNavigation = useCallback(() => {
+    dispatch(toggleNavigation(!isNavigation));
+  }, [dispatch, isNavigation]);
+
   return (
     <>
       <header className="page-header">
@@ -32,22 +40,12 @@ const Header = () => {
         </div>
 
         <div className="page-header__menu-icon">
-          <button
-            type="button"
-            className="img-replace"
-            onClick={() => dispatch(toggleNavigation(!isNavigation))}
-            aria-label="Menu"
-          />
+          <button type="button" className="img-replace" onClick={handleNavigation} aria-label="Menu" />
         </div>
         {location.pathname !== CART_PAGE && (
           <div className="page-header__cart-icon cart-icon">
             <div className="page-header__cart-icon-wrap">
-              <button
-                type="button"
-                className="img-replace"
-                onClick={() => dispatch(toggleCartPopUp(!isCartPopUp))}
-                aria-label="Cart"
-              />
+              <button type="button" className="img-replace" onClick={handleCartPopUp} aria-label="Cart" />
               {cartItemsCount > 0 && <div className="page-header__cart-icon-count">{cartItemsCount}</div>}
             </div>
           </div>

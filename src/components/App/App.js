@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { isCartPopUpSelector, isNavigationSelector } from '../../redux/selectors/AppSelectors';
 import Routes from '../../router/Routes';
 import Header from '../../layouts/Header/Header';
+import Overlay from '../Overlay/Overlay';
 
 const App = () => {
   const isCartPopUp = useSelector(isCartPopUpSelector);
@@ -15,7 +16,7 @@ const App = () => {
       <main>
         <Routes />
       </main>
-      {(isCartPopUp || isNavigation) && <div className="page-overlay" />}
+      {(isCartPopUp || isNavigation) && <Overlay />}
       <ReduxToastr
         timeOut={3000}
         preventDuplicates

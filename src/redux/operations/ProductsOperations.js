@@ -6,7 +6,11 @@ import {
   getProductRequest,
   getProductSuccess,
   getProductError,
+  getOriginsRequest,
+  getOriginsSuccess,
+  getOriginsError,
 } from '../actions/ProductsActions';
+import { setFiltersFromRequest } from '../actions/FiltersActions';
 
 import { addToCart } from '../actions/CartActions';
 import { toggleCartPopUp } from '../actions/AppActions';
@@ -19,6 +23,7 @@ export const getProducts = params => dispatch => {
     .getProducts(params)
     .then(res => {
       dispatch(getProductsSuccess(res.items));
+      dispatch(setFiltersFromRequest(res));
     })
     .catch(err => {
       dispatch(getProductsError(err));
@@ -36,6 +41,20 @@ export const getProduct = id => dispatch => {
     })
     .catch(err => {
       dispatch(getProductError(err));
+      toastr.error('Error', err.message);
+    });
+};
+
+export const getOrigins = () => dispatch => {
+  dispatch(getOriginsRequest());
+
+  api
+    .getOrigins()
+    .then(res => {
+      dispatch(getOriginsSuccess(res.items));
+    })
+    .catch(err => {
+      dispatch(getOriginsError(err));
       toastr.error('Error', err.message);
     });
 };

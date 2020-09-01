@@ -10,4 +10,8 @@ export default {
     const { data } = await axios.get(endpoint.PRODUCT_API(id));
     return data;
   },
+  getOrigins: async () => {
+    const { data } = await axios.get(endpoint.ORIGINS_API());
+    return data;
+  },
 };

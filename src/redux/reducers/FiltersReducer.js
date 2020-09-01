@@ -1,21 +1,57 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
-import { setPage, setProductsPerPage, setProductsLimit } from '../actions/FiltersActions';
+import {
+  setPage,
+  setPerPage,
+  setOrigins,
+  setProductsMaxPrice,
+  setProductsMinPrice,
+  setFiltersFromRequest,
+} from '../actions/FiltersActions';
+import { INITIAL_FILTERS } from '../../helpers/constants';
 
-const pageReducer = createReducer(null, {
-  [setPage]: (state, action) => action.payload,
+const filtersReducer = createReducer(INITIAL_FILTERS, {
+  [setPage]: (state, action) => {
+    return {
+      ...state,
+      page: action.payload,
+    };
+  },
+  [setPerPage]: (state, action) => {
+    return {
+      ...state,
+      page: state.page !== 1 ? 1 : state.page,
+      perPage: action.payload,
+    };
+  },
+  [setOrigins]: (state, action) => {
+    return {
+      ...state,
+      page: state.page !== 1 ? 1 : state.page,
+      origins: [...action.payload],
+    };
+  },
+  [setProductsMinPrice]: (state, action) => {
+    return {
+      ...state,
+      page: state.page !== 1 ? 1 : state.page,
+      minPrice: action.payload,
+    };
+  },
+  [setProductsMaxPrice]: (state, action) => {
+    return {
+      ...state,
+      page: state.page !== 1 ? 1 : state.page,
+      maxPrice: action.payload,
+    };
+  },
+  [setFiltersFromRequest]: (state, action) => {
+    return {
+      ...state,
+      page: action.payload.page,
+      perPage: action.payload.perPage,
+      totalItems: action.payload.totalItems,
+    };
+  },
 });
 
-const productsPerPageReducer = createReducer(null, {
-  [setProductsPerPage]: (state, action) => action.payload,
-});
-
-const productsLimitReducer = createReducer(null, {
-  [setProductsLimit]: (state, action) => action.payload,
-});
-
-export default combineReducers({
-  page: pageReducer,
-  productsPerPage: productsPerPageReducer,
-  productsLimit: productsLimitReducer,
-});
+export default filtersReducer;

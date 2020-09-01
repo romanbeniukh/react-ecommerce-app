@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import useBodyOverflow from '../../../hooks/useBodyOverflow';
 import useOutsideClick from '../../../hooks/useOtsideClick';
 import useListenHistory from '../../../hooks/useListenHistory';
 import { toggleCartPopUp } from '../../../redux/actions/AppActions';
@@ -26,8 +25,6 @@ const CartPopUp = () => {
   useListenHistory(() => {
     dispatch(toggleCartPopUp(false));
   });
-
-  useBodyOverflow(true);
 
   return (
     <div className="cart-pop-up" ref={ref}>

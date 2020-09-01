@@ -1,0 +1,54 @@
+.checkboxes
+  display: flex
+  flex-flow: column
+
+
+.checkbox
+  position: relative
+  display: flex
+  align-items: center
+  min-height: 23px
+  padding-left: 30px
+  font-weight: 300
+  font-size: 14px
+  line-height: 17px
+  color: $text-color
+
+  &:not(:last-child)
+    margin-bottom: 10px
+
+  &:hover
+    cursor: pointer
+
+  input:before
+    content: ''
+    cursor: pointer
+    position: absolute
+    width: 23px
+    height: 23px
+    top: 0
+    left: 0
+    background: #fff
+    border: 1px solid #cccccc
+    border-radius: 3px
+
+  input:after
+    opacity: 0
+    content: ''
+    position: absolute
+    width: 13px
+    height: 8px
+    background: transparent
+    top: 6px
+    left: 5px
+    border: 3px solid $link-color
+    border-top: none
+    border-right: none
+    transform: rotate(-45deg)
+
+input[type=checkbox]:checked:after
+  opacity: 1
+
+input[type=checkbox]:hover:before,
+input[type=checkbox]:focus:before
+  border-color: $placeholder-color
