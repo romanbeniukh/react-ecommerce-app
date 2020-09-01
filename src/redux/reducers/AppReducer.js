@@ -29,17 +29,6 @@ const popUpsReducer = createReducer(init, {
     };
   },
 });
-// const navigationReducer = createReducer(false, {
-//   [toggleNavigation]: (state, action) => action.payload,
-// });
-//
-// const cartPopUpReducer = createReducer(false, {
-//   [toggleCartPopUp]: (state, action) => action.payload,
-// });
-//
-// const showFiltersReducer = createReducer(false, {
-//   [toggleFilters]: (state, action) => action.payload,
-// });
 
 export default combineReducers({
   popUps: popUpsReducer,

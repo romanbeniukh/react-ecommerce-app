@@ -33,35 +33,33 @@ const Header = () => {
   }, [dispatch, isNavigation]);
 
   return (
-    <>
-      <header className="page-header">
-        <div className="page-header__logo">
-          <img src={logo} alt="logo" />
-        </div>
+    <header className="page-header">
+      <div className="page-header__logo">
+        <img src={logo} alt="logo" />
+      </div>
 
-        <div className="page-header__menu-icon">
-          <button type="button" className="img-replace" onClick={handleNavigation} aria-label="Menu" />
-        </div>
-        {location.pathname !== CART_PAGE && (
-          <div className="page-header__cart-icon cart-icon">
-            <div className="page-header__cart-icon-wrap">
-              <button type="button" className="img-replace" onClick={handleCartPopUp} aria-label="Cart" />
-              {cartItemsCount > 0 && <div className="page-header__cart-icon-count">{cartItemsCount}</div>}
-            </div>
+      <div className="page-header__menu-icon">
+        <button type="button" className="img-replace" onClick={handleNavigation} aria-label="Menu" />
+      </div>
+      {location.pathname !== CART_PAGE && (
+        <div className="page-header__cart-icon cart-icon">
+          <div className="page-header__cart-icon-wrap">
+            <button type="button" className="img-replace" onClick={handleCartPopUp} aria-label="Cart" />
+            {cartItemsCount > 0 && <div className="page-header__cart-icon-count">{cartItemsCount}</div>}
           </div>
-        )}
-        {width < NOT_ADAPTIVE ? (
-          <CSSTransition in={isNavigation} timeout={300} classNames={slideLeft} unmountOnExit>
-            <NavBar isAdaptive />
-          </CSSTransition>
-        ) : (
-          <NavBar />
-        )}
-        <CSSTransition in={isCartPopUp} timeout={300} classNames={slideRight} unmountOnExit>
-          <CartPopUp />
+        </div>
+      )}
+      {width < NOT_ADAPTIVE ? (
+        <CSSTransition in={isNavigation} timeout={300} classNames={slideLeft} unmountOnExit>
+          <NavBar isAdaptive />
         </CSSTransition>
-      </header>
-    </>
+      ) : (
+        <NavBar />
+      )}
+      <CSSTransition in={isCartPopUp} timeout={300} classNames={slideRight} unmountOnExit>
+        <CartPopUp />
+      </CSSTransition>
+    </header>
   );
 };
 

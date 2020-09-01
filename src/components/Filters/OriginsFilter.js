@@ -14,11 +14,7 @@ const OriginsFilter = () => {
     dispatch(setOrigins(checkedValues));
   };
 
-  return (
-    <>
-      <CustomCheckboxGroup selectedValues={selectedOrigins} handler={handleOriginsChange} values={origins} />
-    </>
-  );
+  return <CustomCheckboxGroup selectedValues={selectedOrigins} handler={handleOriginsChange} values={origins} />;
 };
 
 export default OriginsFilter;

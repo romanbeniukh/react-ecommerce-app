@@ -17,16 +17,14 @@ const PriceFilter = () => {
   };
 
   return (
-    <>
-      <CustomRange
-        min={DEFAULT_MIN_PRICE}
-        max={DEFAULT_MAX_PRICE}
-        step={10}
-        value={priceDiapason}
-        onChange={handlePriceChange}
-        onAfterChange={() => dispatch(setFiltersPrice(priceDiapason))}
-      />
-    </>
+    <CustomRange
+      min={DEFAULT_MIN_PRICE}
+      max={DEFAULT_MAX_PRICE}
+      step={10}
+      value={priceDiapason}
+      onChange={handlePriceChange}
+      onAfterChange={() => dispatch(setFiltersPrice(priceDiapason))}
+    />
   );
 };
 
