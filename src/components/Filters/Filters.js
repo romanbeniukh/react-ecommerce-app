@@ -38,8 +38,12 @@ const Filters = ({ isAdaptive }) => {
   );
 };
 
+Filters.defaultProps = {
+  isAdaptive: false,
+};
+
 Filters.propTypes = {
-  isAdaptive: T.bool.isRequired,
+  isAdaptive: T.bool,
 };
 
 export default Filters;
