@@ -1,0 +1,38 @@
+.with-sidebar
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+
+.page-sidebar
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 4
+  background-color: $white-color
+  height: 100vh
+  margin-top: 50px
+  padding: 20px
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2)
+  width: 250px
+
+  +mmin($tablet)
+    width: 350px
+
+  +mmin($large)
+    position: static
+    width: calc(20% - 50px)
+    box-shadow: none
+    padding: 0
+    height: auto
+    overflow-y: visible
+    margin-top: 0
+    background: transparent
+
+.page-content
+  width: 100%
+
+  +mmin($large)
+    width: 80%
+

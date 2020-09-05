@@ -11,18 +11,16 @@ const CartProductsList = () => {
   const totalPrice = useSelector(getCartTotalPriceSelector);
 
   return products.length ? (
-    <>
-      <ul className="cart-products">
-        {products.map(product => (
-          <li className="cart-products__item" key={product.id}>
-            <CartProduct product={product} />
-          </li>
-        ))}
-        <li className="cart-products__total">
-          Total: <span className="cart-products__total-price">{`${currencyFormatter(totalPrice)} $`}</span>
+    <ul className="cart-products">
+      {products.map(product => (
+        <li className="cart-products__item" key={product.id}>
+          <CartProduct product={product} />
         </li>
-      </ul>
-    </>
+      ))}
+      <li className="cart-products__total">
+        Total: <span className="cart-products__total-price">{`${currencyFormatter(totalPrice)} $`}</span>
+      </li>
+    </ul>
   ) : (
     <CartEmpty />
   );

@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux';
 import T from 'prop-types';
 import { toggleNavigation } from '../../redux/actions/AppActions';
 import { MAIN_PAGE, PRODUCTS_PAGE } from '../../helpers/constants';
-
-import useBodyOverflow from '../../hooks/useBodyOverflow';
 import useOutsideClick from '../../hooks/useOtsideClick';
 import useListenHistory from '../../hooks/useListenHistory';
 
@@ -20,8 +18,6 @@ const NavBar = ({ isAdaptive }) => {
   useListenHistory(() => {
     isAdaptive && dispatch(toggleNavigation(false));
   });
-
-  useBodyOverflow(isAdaptive);
 
   return (
     <nav className="nav-bar" ref={ref}>

@@ -1,0 +1,40 @@
+.pagination
+  display: flex
+  width: 100%
+  margin-top: 40px
+  justify-content: center
+
+  &__item
+    a
+      display: flex
+      align-items: center
+      justify-content: center
+      color: $text-color
+      width: 30px
+      height: 30px
+      border: 1px solid $placeholder-color
+      border-radius: 3px
+      line-height: 100%
+      transition: .3s
+
+      &:hover
+        color: $link-color
+        border-color: $link-color
+
+    &--previous
+      transform: rotate(180deg)
+
+    &:not(:first-child)
+      margin-left: 20px
+
+  &__item.active
+    a
+      font-weight: 500
+      color: lighten($link-color, 10%)
+      border-color: lighten($link-color, 10%)
+
+  &__item--previous.disabled,
+  &__item--next.disabled
+    a
+      color: $placeholder-color
+      border-color: $placeholder-color
