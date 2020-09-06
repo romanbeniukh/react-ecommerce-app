@@ -39,6 +39,7 @@ const ProductsPage = () => {
   useEffect(() => {
     getProductsCallback();
     history.push({ search: searchParams });
+    // eslint-disable-next-line
   }, [getProductsCallback]);
 
   const handlePagination = value => {
