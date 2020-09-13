@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
+import T from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getProducts } from '../../redux/operations/ProductsOperations';
@@ -21,7 +22,7 @@ import Sidebar from '../../layouts/Sidebar/Sidebar';
 import Pagination from '../../components/Filters/Pagination';
 import Fab from '../../components/Inputs/Fab';
 
-const ProductsPage = () => {
+const ProductsPage = ({ myProducts, title }) => {
   const width = useWindowSize();
   const dispatch = useDispatch();
   const isFilters = useSelector(isFiltersSelector);
@@ -33,8 +34,8 @@ const ProductsPage = () => {
   const searchParams = stringifyFilters(filters);
 
   const getProductsCallback = useCallback(() => {
-    dispatch(getProducts(searchParams));
-  }, [dispatch, searchParams]);
+    dispatch(getProducts(myProducts ? `editable=true&${searchParams}` : searchParams));
+  }, [myProducts, dispatch, searchParams]);
 
   useEffect(() => {
     getProductsCallback();
@@ -50,14 +51,14 @@ const ProductsPage = () => {
   };
 
   return (
-    <Section title="Products">
+    <Section title={title}>
       <Sidebar isAdaptive={width < NOT_ADAPTIVE}>
         <>
           <ProductsList />
           <Pagination
             initialPage={page}
             forcePage={page}
-            count={Math.round(totalItems / perPage)}
+            count={Math.ceil(totalItems / perPage)}
             onClick={handlePagination}
           />
           {width < NOT_ADAPTIVE && <Fab onClick={() => dispatch(toggleFilters(!isFilters))} />}
@@ -65,6 +66,15 @@ const ProductsPage = () => {
       </Sidebar>
     </Section>
   );
+};
+
+ProductsPage.defaultProps = {
+  myProducts: false,
+};
+
+ProductsPage.propTypes = {
+  myProducts: T.bool,
+  title: T.string.isRequired,
 };
 
 export default ProductsPage;

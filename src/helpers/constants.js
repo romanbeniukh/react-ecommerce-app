@@ -4,7 +4,9 @@ export const NOT_ADAPTIVE = 1200;
 // routes
 export const MAIN_PAGE = '/';
 export const PRODUCTS_PAGE = '/products';
+export const MY_PRODUCTS_PAGE = '/my-products';
 export const CART_PAGE = '/cart';
+export const ORDERS_PAGE = '/orders';
 
 // filters
 export const DEFAULT_PAGE = 1;

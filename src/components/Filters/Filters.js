@@ -27,12 +27,15 @@ const Filters = ({ isAdaptive }) => {
       </WithLabel>
       <span className="filters__total-items">Find {totalItems} products!</span>
       {isAdaptive && (
-        <Btn
-          label="Hide filters"
-          modificator="hide-filters"
-          type="button"
-          onClick={() => dispatch(toggleFilters(false))}
-        />
+        <div className="filters__btn-wrap">
+          <Btn
+            size="small"
+            label="Hide filters"
+            modificator="main"
+            type="button"
+            onClick={() => dispatch(toggleFilters(false))}
+          />
+        </div>
       )}
     </div>
   );

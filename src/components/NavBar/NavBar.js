@@ -2,10 +2,11 @@ import React, { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import T from 'prop-types';
-import { toggleNavigation } from '../../redux/actions/AppActions';
-import { MAIN_PAGE, PRODUCTS_PAGE } from '../../helpers/constants';
+import { toggleNavigation, toggleModal } from '../../redux/actions/AppActions';
+import { MAIN_PAGE, PRODUCTS_PAGE, MY_PRODUCTS_PAGE, ORDERS_PAGE } from '../../helpers/constants';
 import useOutsideClick from '../../hooks/useOtsideClick';
 import useListenHistory from '../../hooks/useListenHistory';
+import Btn from '../Inputs/Btn';
 
 const NavBar = ({ isAdaptive }) => {
   const ref = useRef();
@@ -31,6 +32,24 @@ const NavBar = ({ isAdaptive }) => {
           <NavLink to={PRODUCTS_PAGE} className="nav-bar__link" activeClassName="active">
             Products
           </NavLink>
+        </li>
+        <li className="nav-bar__item">
+          <NavLink to={MY_PRODUCTS_PAGE} className="nav-bar__link" activeClassName="active">
+            My products
+          </NavLink>
+        </li>
+        <li className="nav-bar__item">
+          <NavLink to={ORDERS_PAGE} className="nav-bar__link" activeClassName="active">
+            Orders
+          </NavLink>
+        </li>
+        <li className="nav-bar__item nav-bar__item--btn">
+          <Btn
+            type="button"
+            onClick={() => dispatch(toggleModal(true))}
+            label="+ Add product"
+            modificator="stroke-color"
+          />
         </li>
       </ul>
     </nav>
