@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { productsMinPriceSelector, productsMaxPriceSelector } from '../../redux/selectors/FiltersSelectors';
 import { DEFAULT_MIN_PRICE, DEFAULT_MAX_PRICE } from '../../helpers/constants';
@@ -11,6 +11,10 @@ const PriceFilter = () => {
   const maxPrice = useSelector(productsMaxPriceSelector);
 
   const [priceDiapason, setPrices] = useState([minPrice, maxPrice]);
+
+  useEffect(() => {
+    setPrices([minPrice, maxPrice]);
+  }, [minPrice, maxPrice]);
 
   const handlePriceChange = value => {
     setPrices(value);

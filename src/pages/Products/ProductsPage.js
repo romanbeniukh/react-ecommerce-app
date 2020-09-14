@@ -11,9 +11,11 @@ import {
 } from '../../redux/selectors/FiltersSelectors';
 import { isFiltersSelector } from '../../redux/selectors/AppSelectors';
 import { toggleFilters } from '../../redux/actions/AppActions';
+import { resetFilters } from '../../redux/actions/FiltersActions';
 import { setPageWithScrollUp } from '../../redux/operations/FiltersOperations';
 import stringifyFilters from '../../helpers/stringifyFilters';
 import useWindowSize from '../../hooks/useWindowSize';
+import useListenHistory from '../../hooks/useListenHistory';
 import { NOT_ADAPTIVE } from '../../helpers/constants';
 
 import ProductsList from '../../components/Products/ProductsList/ProductsList';
@@ -36,6 +38,12 @@ const ProductsPage = ({ myProducts, title }) => {
   const getProductsCallback = useCallback(() => {
     dispatch(getProducts(myProducts ? `editable=true&${searchParams}` : searchParams));
   }, [myProducts, dispatch, searchParams]);
+
+  useListenHistory(location => {
+    const { state } = location;
+
+    state && state.resetFilters && dispatch(resetFilters());
+  });
 
   useEffect(() => {
     getProductsCallback();
