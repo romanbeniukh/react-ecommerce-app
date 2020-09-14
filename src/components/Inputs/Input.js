@@ -30,6 +30,7 @@ const Input = ({
             options={options}
             placeholder={placeholder}
             onChange={onChange}
+            {...props}
           />
         ) : (
           <input
