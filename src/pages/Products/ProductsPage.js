@@ -33,11 +33,11 @@ const ProductsPage = ({ myProducts, title }) => {
   const perPage = useSelector(productsPerPageSelector);
   const page = useSelector(productsPageSelector);
   const history = useHistory();
-  const searchParams = stringifyFilters(filters);
+  const searchParams = stringifyFilters({ ...filters, editable: !!myProducts });
 
   const getProductsCallback = useCallback(() => {
-    dispatch(getProducts(myProducts ? `editable=true&${searchParams}` : searchParams));
-  }, [myProducts, dispatch, searchParams]);
+    dispatch(getProducts(searchParams));
+  }, [dispatch, searchParams]);
 
   useListenHistory(location => {
     const { state } = location;
