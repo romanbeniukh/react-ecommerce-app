@@ -5,14 +5,14 @@ import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { PRODUCTS_PAGE } from '../../../helpers/constants';
 
-import { addToCartOperation } from '../../../redux/operations/ProductsOperations';
+import { addToCartOperation, openProductFormModal, deleteProduct } from '../../../redux/operations/ProductsOperations';
 import Btn from '../../Inputs/Btn';
 import currencyFormatter from '../../../helpers/currencyFormatter';
 import dateFormatter from '../../../helpers/dateFormatter';
 
 import productImg from '../../../assets/img/product.svg';
 
-const ProductCard = ({ product, isProductPage, isSmallCart, isCart }) => {
+const ProductCard = ({ product, count = null, isProductPage, isSmallCart, isCart }) => {
   const dispatch = useDispatch();
 
   const styles = classNames('product-card', {
@@ -27,6 +27,14 @@ const ProductCard = ({ product, isProductPage, isSmallCart, isCart }) => {
     'product-card__origins--usa': product.origin === 'usa',
     'product-card__origins--africa': product.origin === 'africa',
   });
+
+  const trashIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" />
+    </svg>
+  );
+
+  const quantity = count || product.quantity;
 
   return (
     <div className={styles}>
@@ -51,21 +59,44 @@ const ProductCard = ({ product, isProductPage, isSmallCart, isCart }) => {
         <span className="product-card__price">{`${currencyFormatter(product.price)} $`}</span>
         {isSmallCart && (
           <>
-            <span className="product-card__price">Qty: {product.quantity}</span>
+            <span className="product-card__price">Qty: {quantity}</span>
             <span className="product-card__price product-card__price--accent">{`${currencyFormatter(
-              product.price * product.quantity,
+              product.price * quantity,
             )} $`}</span>
           </>
         )}
       </div>
-      {!(isSmallCart || isCart) && (
-        <Btn
-          type="button"
-          label="Add to cart"
-          modificator="add-to-cart"
-          onClick={() => dispatch(addToCartOperation(product))}
-        />
-      )}
+      <div className="product-card__btn-wrap">
+        {!(isSmallCart || isCart || product.isEditable) && (
+          <Btn
+            type="button"
+            label="Add to cart"
+            modificator="secondary"
+            onClick={() => dispatch(addToCartOperation(product))}
+          />
+        )}
+        {product.isEditable && (
+          <>
+            <Btn
+              size="small"
+              modificator="main"
+              label="Edit"
+              type="button"
+              onClick={() => dispatch(openProductFormModal(product))}
+            />
+            {!isProductPage && (
+              <Btn
+                size="small"
+                modificator="secondary"
+                icon={trashIcon}
+                label="Delete"
+                type="button"
+                onClick={() => dispatch(deleteProduct(product.id))}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };
@@ -74,6 +105,7 @@ ProductCard.defaultProps = {
   isProductPage: false,
   isSmallCart: false,
   isCart: false,
+  count: null,
 };
 
 ProductCard.propTypes = {
@@ -90,6 +122,7 @@ ProductCard.propTypes = {
   isProductPage: T.bool,
   isSmallCart: T.bool,
   isCart: T.bool,
+  count: T.number,
 };
 
 export default ProductCard;

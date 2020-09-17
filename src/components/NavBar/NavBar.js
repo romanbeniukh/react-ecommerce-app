@@ -1,15 +1,17 @@
 import React, { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import T from 'prop-types';
-import { toggleNavigation } from '../../redux/actions/AppActions';
-import { MAIN_PAGE, PRODUCTS_PAGE } from '../../helpers/constants';
+import { toggleNavigation, toggleModal } from '../../redux/actions/AppActions';
+import { MAIN_PAGE, PRODUCTS_PAGE, MY_PRODUCTS_PAGE, ORDERS_PAGE, CART_PAGE } from '../../helpers/constants';
 import useOutsideClick from '../../hooks/useOtsideClick';
 import useListenHistory from '../../hooks/useListenHistory';
+import Btn from '../Inputs/Btn';
 
 const NavBar = ({ isAdaptive }) => {
   const ref = useRef();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useOutsideClick(ref, () => {
     isAdaptive && dispatch(toggleNavigation(false));
@@ -28,10 +30,38 @@ const NavBar = ({ isAdaptive }) => {
           </NavLink>
         </li>
         <li className="nav-bar__item">
-          <NavLink to={PRODUCTS_PAGE} className="nav-bar__link" activeClassName="active">
+          <NavLink
+            to={{ pathname: PRODUCTS_PAGE, state: { resetFilters: true } }}
+            className="nav-bar__link"
+            activeClassName="active"
+          >
             Products
           </NavLink>
         </li>
+        <li className="nav-bar__item">
+          <NavLink
+            to={{ pathname: MY_PRODUCTS_PAGE, state: { resetFilters: true } }}
+            className="nav-bar__link"
+            activeClassName="active"
+          >
+            My products
+          </NavLink>
+        </li>
+        <li className="nav-bar__item">
+          <NavLink to={ORDERS_PAGE} className="nav-bar__link" activeClassName="active">
+            Orders
+          </NavLink>
+        </li>
+        {location.pathname !== CART_PAGE && (
+          <li className="nav-bar__item nav-bar__item--btn">
+            <Btn
+              type="button"
+              onClick={() => dispatch(toggleModal(true))}
+              label="+ Add product"
+              modificator="stroke-color"
+            />
+          </li>
+        )}
       </ul>
     </nav>
   );

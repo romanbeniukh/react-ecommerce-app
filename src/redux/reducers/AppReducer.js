@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { reducer as toastrReducer } from 'react-redux-toastr';
-import { toggleNavigation, toggleCartPopUp, toggleFilters } from '../actions/AppActions';
+import { toggleNavigation, toggleCartPopUp, toggleFilters, toggleModal, toggleLoader } from '../actions/AppActions';
 
 const init = {
   isOpenNavigation: false,
   isOpenCartPopUp: false,
   isOpenFilters: false,
+  isOpenModal: false,
 };
 
 const popUpsReducer = createReducer(init, {
@@ -28,9 +29,20 @@ const popUpsReducer = createReducer(init, {
       isOpenFilters: action.payload,
     };
   },
+  [toggleModal]: (state, action) => {
+    return {
+      ...init,
+      isOpenModal: action.payload,
+    };
+  },
+});
+
+const loaderReducer = createReducer(false, {
+  [toggleLoader]: (state, action) => action.payload,
 });
 
 export default combineReducers({
   popUps: popUpsReducer,
+  isLoading: loaderReducer,
   toastr: toastrReducer,
 });

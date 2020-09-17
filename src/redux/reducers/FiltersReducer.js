@@ -6,6 +6,7 @@ import {
   setProductsMaxPrice,
   setProductsMinPrice,
   setFiltersFromRequest,
+  resetFilters,
 } from '../actions/FiltersActions';
 import { INITIAL_FILTERS } from '../../helpers/constants';
 
@@ -52,6 +53,7 @@ const filtersReducer = createReducer(INITIAL_FILTERS, {
       totalItems: action.payload.totalItems,
     };
   },
+  [resetFilters]: () => INITIAL_FILTERS,
 });
 
 export default filtersReducer;

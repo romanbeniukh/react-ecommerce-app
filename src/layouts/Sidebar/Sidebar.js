@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import T from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { toggleFilters } from '../../redux/actions/AppActions';
-import { getOrigins } from '../../redux/operations/ProductsOperations';
 import useOutsideClick from '../../hooks/useOtsideClick';
 import { isFiltersSelector } from '../../redux/selectors/AppSelectors';
 
@@ -16,10 +15,6 @@ const Sidebar = ({ children, isAdaptive }) => {
   const ref = useRef();
   const dispatch = useDispatch();
   const isFilters = useSelector(isFiltersSelector);
-
-  useEffect(() => {
-    dispatch(getOrigins());
-  }, [dispatch]);
 
   useOutsideClick(ref, () => {
     isAdaptive && dispatch(toggleFilters(false));

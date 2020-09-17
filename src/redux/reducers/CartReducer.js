@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { addToCart, removeFromCart, incrementQuantity, decrementQuantity } from '../actions/CartActions';
+import { postOrderSuccess } from '../actions/OrdersActions';
 
 export default createReducer(
   {},
@@ -30,5 +31,6 @@ export default createReducer(
         [action.payload]: { ...state[action.payload], quantity: state[action.payload].quantity - 1 },
       };
     },
+    [postOrderSuccess]: () => ({}),
   },
 );
