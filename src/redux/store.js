@@ -1,9 +1,12 @@
-import ReduxThunk from 'redux-thunk';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import createSagaMiddleware from 'redux-saga';
+import { createSagaInjector } from './sagas/config/createSagaInjector';
 import rootReducer from './reducers';
-import { preloadStateFromUrl } from './preload/preloadStateFromUrl';
+import rootSaga from './sagas/rootSaga';
+
+export const sagaMiddleware = createSagaMiddleware();
 
 const persistConfig = {
   key: 'root',
@@ -13,9 +16,10 @@ const persistConfig = {
 
 export const store = configureStore({
   reducer: persistReducer(persistConfig, rootReducer),
-  middleware: [ReduxThunk],
-  preloadedState: preloadStateFromUrl(),
+  middleware: [sagaMiddleware],
   devTools: true,
 });
 
 export const persistor = persistStore(store);
+
+Object.assign(store, createSagaInjector(sagaMiddleware.run, rootSaga));

@@ -30,20 +30,12 @@ const NavBar = ({ isAdaptive }) => {
           </NavLink>
         </li>
         <li className="nav-bar__item">
-          <NavLink
-            to={{ pathname: PRODUCTS_PAGE, state: { resetFilters: true } }}
-            className="nav-bar__link"
-            activeClassName="active"
-          >
+          <NavLink to={PRODUCTS_PAGE} className="nav-bar__link" activeClassName="active">
             Products
           </NavLink>
         </li>
         <li className="nav-bar__item">
-          <NavLink
-            to={{ pathname: MY_PRODUCTS_PAGE, state: { resetFilters: true } }}
-            className="nav-bar__link"
-            activeClassName="active"
-          >
+          <NavLink to={MY_PRODUCTS_PAGE} className="nav-bar__link" activeClassName="active">
             My products
           </NavLink>
         </li>

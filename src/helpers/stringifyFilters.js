@@ -9,7 +9,7 @@ export default filters => {
     perPage && perPage !== DEFAULT_PER_PAGE ? `perPage=${perPage}` : '',
     minPrice !== DEFAULT_MIN_PRICE ? `minPrice=${minPrice}` : '',
     maxPrice !== DEFAULT_MAX_PRICE ? `maxPrice=${maxPrice}` : '',
-    editable ? `editable=${editable}` : '',
+    editable ? `editable=true` : '',
   ];
 
   return currentFilters.filter(Boolean).length !== 0 ? `${currentFilters.filter(Boolean).join('&')}` : '';

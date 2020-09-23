@@ -9,11 +9,14 @@ import CartPage from '../pages/Cart/CartPage';
 import OrdersPage from '../pages/Orders/OrdersPage';
 import OrderPage from '../pages/Order/OrderPage';
 
+const Products = () => <ProductsPage title="Products" />;
+const MyProducts = () => <ProductsPage title="MyProducts" />;
+
 const Routes = () => (
   <Switch>
     <Route exact path={MAIN_PAGE} component={HomePage} />
-    <Route exact path={PRODUCTS_PAGE} render={props => <ProductsPage {...props} title="Products" />} />
-    <Route exact path={MY_PRODUCTS_PAGE} render={props => <ProductsPage {...props} myProducts title="My products" />} />
+    <Route exact path={PRODUCTS_PAGE} component={Products} />
+    <Route exact path={MY_PRODUCTS_PAGE} component={MyProducts} />
     <Route path={`${PRODUCTS_PAGE}/:id`} component={ProductPage} />
     <Route path={CART_PAGE} component={CartPage} />
     <Route exact path={ORDERS_PAGE} component={OrdersPage} />

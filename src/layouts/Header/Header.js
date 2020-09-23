@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
+import LoadingBar from 'react-redux-loading-bar';
 import useWindowSize from '../../hooks/useWindowSize';
 import { isCartPopUpSelector, isNavigationSelector } from '../../redux/selectors/AppSelectors';
 import { getCartItemsCountSelector } from '../../redux/selectors/CartSelector';
@@ -34,6 +35,7 @@ const Header = () => {
 
   return (
     <header className="page-header">
+      <LoadingBar />
       <div className="page-header__logo">
         <img src={logo} alt="logo" />
       </div>

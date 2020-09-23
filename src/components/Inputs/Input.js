@@ -13,6 +13,7 @@ const Input = ({
   getOptionLabel,
   options,
   isSelect,
+  disabled,
   ...props
 }) => {
   const styles = classNames('custom-input__input', {
@@ -30,6 +31,7 @@ const Input = ({
             options={options}
             placeholder={placeholder}
             onChange={onChange}
+            isDisabled={disabled}
             {...props}
           />
         ) : (
@@ -39,6 +41,7 @@ const Input = ({
             onChange={onChange}
             className={styles}
             placeholder={placeholder}
+            disabled={disabled}
             {...props}
           />
         )}
@@ -57,6 +60,7 @@ Input.defaultProps = {
   touched: null,
   getOptionLabel: null,
   options: [],
+  disabled: false,
 };
 
 Input.propTypes = {
@@ -69,6 +73,7 @@ Input.propTypes = {
   getOptionLabel: T.func,
   options: T.arrayOf(T.object),
   isSelect: T.bool,
+  disabled: T.bool,
 };
 
 export default Input;

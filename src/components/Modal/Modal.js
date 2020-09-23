@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import T from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { closeProductFormModal } from '../../redux/operations/ProductsOperations';
+import { closeProductFormModal } from '../../redux/sagas/productsSagas/productFormSaga';
+import useRunSaga from '../../hooks/useRunSaga';
 import useOutsideClick from '../../hooks/useOtsideClick';
 
 import Portal from '../Portal/Portal';
@@ -11,8 +11,7 @@ import CloseIcon from '../../assets/img/remove-icon.svg';
 
 const Modal = ({ title, children }) => {
   const ref = useRef();
-  const dispatch = useDispatch();
-  const closeModal = () => dispatch(closeProductFormModal());
+  const closeModal = useRunSaga(closeProductFormModal);
 
   const handleKeypress = e => {
     if (e.code !== 'Escape') return;

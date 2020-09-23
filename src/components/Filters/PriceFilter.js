@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { productsMinPriceSelector, productsMaxPriceSelector } from '../../redux/selectors/FiltersSelectors';
 import { DEFAULT_MIN_PRICE, DEFAULT_MAX_PRICE } from '../../helpers/constants';
-import { setFiltersPrice } from '../../redux/operations/FiltersOperations';
+import { setFiltersPriceSaga } from '../../redux/sagas/filtersSaga';
+import useRunSaga from '../../hooks/useRunSaga';
 import CustomRange from '../Inputs/CustomRange';
 
 const PriceFilter = () => {
-  const dispatch = useDispatch();
   const minPrice = useSelector(productsMinPriceSelector);
   const maxPrice = useSelector(productsMaxPriceSelector);
-
+  const setFiltersPrice = useRunSaga(setFiltersPriceSaga);
   const [priceDiapason, setPrices] = useState([minPrice, maxPrice]);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const PriceFilter = () => {
       step={10}
       value={priceDiapason}
       onChange={handlePriceChange}
-      onAfterChange={() => dispatch(setFiltersPrice(priceDiapason))}
+      onAfterChange={() => setFiltersPrice(priceDiapason)}
     />
   );
 };

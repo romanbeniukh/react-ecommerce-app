@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getOrders } from '../../redux/operations/OrdersOperations';
+import React from 'react';
+import useInjectSaga from '../../hooks/useInjectSaga';
+import fetchOrdersSaga from '../../redux/sagas/ordersSagas/fetchOrdersSaga';
 
 import OrdersList from '../../components/Orders/OrdersList/OrdersList';
 import Section from '../../layouts/Section/Section';
 
 const OrdersPage = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getOrders());
-  }, [dispatch]);
+  useInjectSaga('fetchOrders', fetchOrdersSaga);
 
   return (
     <Section title="Orders">

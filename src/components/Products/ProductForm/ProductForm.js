@@ -1,19 +1,22 @@
 import React, { useMemo } from 'react';
 import { Formik } from 'formik';
-import { object, string, number } from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import formValidation from '../../../helpers/formValidation';
 import { getOriginsSelector, getEditedProductSelector } from '../../../redux/selectors/ProductsSelectors';
-import { patchProduct, postProduct } from '../../../redux/operations/ProductsOperations';
+import postProductSaga from '../../../redux/sagas/productsSagas/postProductSaga';
+import patchProductSaga from '../../../redux/sagas/productsSagas/patchProductSaga';
+import useRunSaga from '../../../hooks/useRunSaga';
 
 import Modal from '../../Modal/Modal';
 import Input from '../../Inputs/Input';
 import Btn from '../../Inputs/Btn';
 
 const ProductForm = () => {
-  const dispatch = useDispatch();
   const origins = useSelector(getOriginsSelector);
   const editedProduct = useSelector(getEditedProductSelector);
   const isEdit = useMemo(() => !!Object.keys(editedProduct).length, [editedProduct]);
+  const addProduct = useRunSaga(postProductSaga);
+  const editProduct = useRunSaga(patchProductSaga);
 
   const initialValue = {
     name: isEdit ? editedProduct.name : '',
@@ -25,14 +28,7 @@ const ProductForm = () => {
     <Modal title={isEdit ? 'Edit your product' : 'Add product'}>
       <Formik
         initialValues={initialValue}
-        validationSchema={object().shape({
-          name: string().min(2, 'Enter min 2 letters').max(20, 'Enter max 20 letters').required('Field is required'),
-          price: number().moreThan(0, 'Enter price more then 0').required('Field is required'),
-          origin: object().shape({
-            value: string().required('Field is required'),
-            displayName: string().required('Field is required'),
-          }),
-        })}
+        validationSchema={formValidation}
         onSubmit={values => {
           const postData = {
             product: {
@@ -42,7 +38,7 @@ const ProductForm = () => {
             },
           };
 
-          isEdit ? dispatch(patchProduct(editedProduct.id, postData)) : dispatch(postProduct(postData));
+          isEdit ? editProduct(editedProduct.id, postData) : addProduct(postData);
         }}
       >
         {({

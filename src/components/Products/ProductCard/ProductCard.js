@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import T from 'prop-types';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
 import { PRODUCTS_PAGE } from '../../../helpers/constants';
+import addToCartSaga from '../../../redux/sagas/addToCartSaga';
+import { openProductFormModal } from '../../../redux/sagas/productsSagas/productFormSaga';
+import deleteProductSaga from '../../../redux/sagas/productsSagas/deleteProductSaga';
+import useRunSaga from '../../../hooks/useRunSaga';
 
-import { addToCartOperation, openProductFormModal, deleteProduct } from '../../../redux/operations/ProductsOperations';
 import Btn from '../../Inputs/Btn';
 import currencyFormatter from '../../../helpers/currencyFormatter';
 import dateFormatter from '../../../helpers/dateFormatter';
@@ -13,7 +15,9 @@ import dateFormatter from '../../../helpers/dateFormatter';
 import productImg from '../../../assets/img/product.svg';
 
 const ProductCard = ({ product, count = null, isProductPage, isSmallCart, isCart }) => {
-  const dispatch = useDispatch();
+  const addToCart = useRunSaga(addToCartSaga);
+  const editProduct = useRunSaga(openProductFormModal);
+  const deleteProduct = useRunSaga(deleteProductSaga);
 
   const styles = classNames('product-card', {
     'product-card--product-page': isProductPage,
@@ -68,22 +72,11 @@ const ProductCard = ({ product, count = null, isProductPage, isSmallCart, isCart
       </div>
       <div className="product-card__btn-wrap">
         {!(isSmallCart || isCart || product.isEditable) && (
-          <Btn
-            type="button"
-            label="Add to cart"
-            modificator="secondary"
-            onClick={() => dispatch(addToCartOperation(product))}
-          />
+          <Btn type="button" label="Add to cart" modificator="secondary" onClick={() => addToCart(product)} />
         )}
         {product.isEditable && (
           <>
-            <Btn
-              size="small"
-              modificator="main"
-              label="Edit"
-              type="button"
-              onClick={() => dispatch(openProductFormModal(product))}
-            />
+            <Btn size="small" modificator="main" label="Edit" type="button" onClick={() => editProduct(product)} />
             {!isProductPage && (
               <Btn
                 size="small"
@@ -91,7 +84,7 @@ const ProductCard = ({ product, count = null, isProductPage, isSmallCart, isCart
                 icon={trashIcon}
                 label="Delete"
                 type="button"
-                onClick={() => dispatch(deleteProduct(product.id))}
+                onClick={() => deleteProduct(product.id)}
               />
             )}
           </>

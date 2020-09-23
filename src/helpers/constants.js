@@ -20,10 +20,11 @@ export const PER_PAGE_OPTIONS = [
 ];
 
 export const INITIAL_FILTERS = {
-  page: null,
-  perPage: null,
+  page: DEFAULT_PAGE,
+  perPage: DEFAULT_PER_PAGE,
   totalItems: null,
   origins: [],
   minPrice: DEFAULT_MIN_PRICE,
   maxPrice: DEFAULT_MAX_PRICE,
+  editable: false,
 };
