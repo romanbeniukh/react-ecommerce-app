@@ -26,8 +26,7 @@ export default function* patchProductSaga(id, credentials) {
     toastr.error('Error', err.message);
   } finally {
     yield call(closeProductFormModal);
+    yield put(resetLoading());
+    yield put(toggleLoader(false));
   }
-
-  yield put(resetLoading());
-  yield put(toggleLoader(false));
 }

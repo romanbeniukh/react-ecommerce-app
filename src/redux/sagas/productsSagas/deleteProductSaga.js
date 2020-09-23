@@ -17,8 +17,8 @@ export default function* deleteProductSaga(id) {
   } catch (err) {
     yield put(deleteProductError(err));
     toastr.error('Error', err.message);
+  } finally {
+    yield put(resetLoading());
+    yield put(toggleLoader(false));
   }
-
-  yield put(resetLoading());
-  yield put(toggleLoader(false));
 }
