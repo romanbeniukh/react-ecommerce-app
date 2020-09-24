@@ -7,7 +7,6 @@ import {
   setProductsMinPrice,
   setFiltersFromRequest,
   setEditable,
-  setNotEditable,
   resetFilters,
   setFiltersFromUrl,
 } from '../actions/FiltersActions';
@@ -66,12 +65,6 @@ const filtersReducer = createReducer(INITIAL_FILTERS, {
     return {
       ...state,
       editable: true,
-    };
-  },
-  [setNotEditable]: state => {
-    return {
-      ...state,
-      editable: false,
     };
   },
   [resetFilters]: () => INITIAL_FILTERS,

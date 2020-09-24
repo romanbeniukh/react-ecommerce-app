@@ -2,7 +2,6 @@ import { put, call, takeLatest } from 'redux-saga/effects';
 import {
   resetFilters,
   setEditable,
-  setNotEditable,
   setPage,
   setPerPage,
   setProductsMaxPrice,
@@ -20,8 +19,6 @@ export default function* productsSaga(history) {
   yield put(resetFilters());
 
   if (Object.keys(parsedFilters).length) yield put(setFiltersFromUrl(parsedFilters));
-
-  if (pathname === '/products') yield put(setNotEditable());
 
   if (pathname === '/my-products') yield put(setEditable());
 
