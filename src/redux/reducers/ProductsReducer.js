@@ -1,7 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import {
-  getProductsRequest,
   getProductsSuccess,
   getProductSuccess,
   getProductRequest,
@@ -15,7 +14,6 @@ import {
 } from '../actions/ProductsActions';
 
 const productsReducer = createReducer([], {
-  [getProductsRequest]: () => [],
   [getProductsSuccess]: (state, action) => action.payload,
   [postProductSuccess]: (state, action) => [...state, action.payload],
   [patchProductSuccess]: (state, action) =>

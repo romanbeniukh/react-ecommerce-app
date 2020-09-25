@@ -1,12 +1,13 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import {
   getProductsInCartSelector,
   getCartTotalPriceSelector,
   getCartForOrder,
 } from '../../../redux/selectors/CartSelector';
-import { postOrder } from '../../../redux/operations/OrdersOperations';
+import useRunSaga from '../../../hooks/useRunSaga';
+import postOrderSaga from '../../../redux/sagas/ordersSagas/postOrderSaga';
 
 import CartProduct from '../CartProduct/CartProduct';
 import CartEmpty from '../CartEmpty/CartEmpty';
@@ -15,10 +16,10 @@ import Btn from '../../Inputs/Btn';
 
 const CartProductsList = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const products = useSelector(getProductsInCartSelector);
   const totalPrice = useSelector(getCartTotalPriceSelector);
   const cartForOrder = useSelector(getCartForOrder);
+  const postOrder = useRunSaga(postOrderSaga);
 
   const orderData = {
     order: {
@@ -39,7 +40,7 @@ const CartProductsList = () => {
       <li className="cart-products__confirm">
         <Btn
           label="Confirm order"
-          onClick={() => dispatch(postOrder(orderData, history))}
+          onClick={() => postOrder(orderData, history)}
           modificator="secondary"
           type="button"
         />

@@ -6,7 +6,9 @@ import {
   setProductsMaxPrice,
   setProductsMinPrice,
   setFiltersFromRequest,
+  setEditable,
   resetFilters,
+  setFiltersFromUrl,
 } from '../actions/FiltersActions';
 import { INITIAL_FILTERS } from '../../helpers/constants';
 
@@ -51,6 +53,18 @@ const filtersReducer = createReducer(INITIAL_FILTERS, {
       page: action.payload.page,
       perPage: action.payload.perPage,
       totalItems: action.payload.totalItems,
+    };
+  },
+  [setFiltersFromUrl]: (state, action) => {
+    return {
+      ...state,
+      ...action.payload,
+    };
+  },
+  [setEditable]: state => {
+    return {
+      ...state,
+      editable: true,
     };
   },
   [resetFilters]: () => INITIAL_FILTERS,

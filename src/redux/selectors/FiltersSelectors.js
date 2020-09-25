@@ -7,3 +7,4 @@ export const productsMaxPriceSelector = createSelector([filtersSelector], filter
 export const productsPerPageSelector = createSelector([filtersSelector], filters => filters.perPage);
 export const productsTotalItemsSelector = createSelector([filtersSelector], filters => filters.totalItems);
 export const productsPageSelector = createSelector([filtersSelector], filters => filters.page);
+export const productsEditable = createSelector([filtersSelector], filters => filters.editable);

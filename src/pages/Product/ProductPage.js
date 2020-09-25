@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getProduct } from '../../redux/operations/ProductsOperations';
+import useInjectSaga from '../../hooks/useInjectSaga';
+import fetchProductSaga from '../../redux/sagas/productsSagas/fetchProductSaga';
 
 import ProductPageCard from '../../components/Products/ProductPageCard/ProductPageCard';
 import Section from '../../layouts/Section/Section';
 
 const ProductPage = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getProduct(id));
-  }, [dispatch, id]);
+  useInjectSaga('productSaga', fetchProductSaga, id);
 
   return (
     <Section title="Product">
